@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Election Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    background:#f4f6f9;
+
+    padding:30px;
+}
+
+.container{
+
+    max-width:1200px;
+
+    margin:auto;
+}
+
+h1{
+
+    text-align:center;
+
+    color:#1e3a8a;
+
+    margin-bottom:30px;
+}
+
+.total-votes{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    color:#16a34a;
+
+    margin-bottom:25px;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    margin-bottom:25px;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card h2{
+
+    color:#1e3a8a;
+
+    margin-bottom:20px;
+}
+
+.result{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px;
+
+    border-bottom:
+    1px solid #e5e7eb;
+}
+
+.result:last-child{
+
+    border-bottom:none;
+}
+
+.name{
+
+    font-size:18px;
+
+    font-weight:bold;
+}
+
+.vote{
+
+    color:#2563eb;
+
+    font-size:18px;
+
+    font-weight:bold;
+}
+
+.leader{
+
+    margin-top:20px;
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    font-size:20px;
+
+    font-weight:bold;
+}
+
+.footer{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#666;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+
+🗳️ Student Council Election Dashboard
+
+</h1>
+
+<div class="total-votes">
+
+Total Votes:
+<span id="totalVotes">0</span>
+
+</div>
+
+<div class="card">
+
+<h2>Head Boy Results</h2>
+
+<div id="headboyResults"></div>
+
+<div
+class="leader"
+id="headboyLeader">
+
+Waiting for votes...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Head Girl Results</h2>
+
+<div id="headgirlResults"></div>
+
+<div
+class="leader"
+id="headgirlLeader">
+
+Waiting for votes...
+
+</div>
+
+</div>
+
+<div class="footer">
+
+Auto Refresh Every 2 Seconds
+
+</div>
+
+</div>
+
+<script>
+
+async function loadResults(){
+
+    try{
+
+        const response =
+            await fetch("/api/results");
+
+        const data =
+            await response.json();
+
+        document.getElementById(
+            "totalVotes"
+        ).innerText =
+            data.total_votes;
+
+        // HEAD BOY
+
+        let hbHTML = "";
+
+        let hbLeader = "";
+        let hbMax = -1;
+
+        for(const [name,votes]
+            of Object.entries(data.headboy)){
+
+            hbHTML += `
+            <div class="result">
+                <span class="name">${name}</span>
+                <span class="vote">${votes}</span>
+            </div>
+            `;
+
+            if(votes > hbMax){
+
+                hbMax = votes;
+                hbLeader = name;
+            }
+        }
+
+        document.getElementById(
+            "headboyResults"
+        ).innerHTML =
+            hbHTML;
+
+        if(hbMax >= 0){
+
+            document.getElementById(
+                "headboyLeader"
+            ).innerHTML =
+                `🏆 Leading: ${hbLeader} (${hbMax} votes)`;
+        }
+
+        // HEAD GIRL
+
+        let hgHTML = "";
+
+        let hgLeader = "";
+        let hgMax = -1;
+
+        for(const [name,votes]
+            of Object.entries(data.headgirl)){
+
+            hgHTML += `
+            <div class="result">
+                <span class="name">${name}</span>
+                <span class="vote">${votes}</span>
+            </div>
+            `;
+
+            if(votes > hgMax){
+
+                hgMax = votes;
+                hgLeader = name;
+            }
+        }
+
+        document.getElementById(
+            "headgirlResults"
+        ).innerHTML =
+            hgHTML;
+
+        if(hgMax >= 0){
+
+            document.getElementById(
+                "headgirlLeader"
+            ).innerHTML =
+                `🏆 Leading: ${hgLeader} (${hgMax} votes)`;
+        }
+
+    }catch(error){
+
+        console.error(error);
+    }
+}
+
+loadResults();
+
+setInterval(
+    loadResults,
+    2000
+);
+
+</script>
+
+</body>
+
+</html>

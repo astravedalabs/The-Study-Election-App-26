@@ -1,0 +1,357 @@
+# System Requirements
+
+## Hardware Requirements
+
+### Server Computer
+
+Minimum:
+
+* Intel Core i3 Processor
+* 4 GB RAM
+* 500 MB Free Storage
+* Windows 10 / Windows 11
+* Wi-Fi or Ethernet Connection
+
+Recommended:
+
+* Intel Core i5 or better
+* 8 GB RAM
+* SSD Storage
+* Dedicated Election Administrator Device
+
+---
+
+### Voting Stations
+
+Minimum:
+
+* Any Windows Laptop/Desktop
+* 2 GB RAM
+* Modern Web Browser
+* Network Connectivity
+
+Recommended:
+
+* Windows 10/11
+* 4 GB RAM
+* Google Chrome
+
+---
+
+## Software Requirements
+
+### Operating System
+
+Supported:
+
+* Windows 10
+* Windows 11
+* Ubuntu Linux 20.04+
+* Debian Linux
+* macOS
+
+---
+
+### Python
+
+Required Version:
+
+Python 3.10+
+
+Recommended Version:
+
+Python 3.13+
+
+Verify Installation:
+
+```bash
+python --version
+```
+
+---
+
+## Python Dependencies
+
+### Flask
+
+Purpose:
+
+* Web Application Framework
+* Routing
+* Session Management
+* API Handling
+
+Installation:
+
+```bash
+pip install Flask
+```
+
+Version:
+
+```txt
+Flask>=3.1.0,<4.0.0
+```
+
+---
+
+## Standard Python Libraries Used
+
+The following libraries are included with Python and require no additional installation:
+
+### csv
+
+Purpose:
+
+* Reading TS Number Database
+* Writing Election Results
+* Vote Storage
+
+### os
+
+Purpose:
+
+* File Existence Checks
+* Storage Management
+
+### datetime
+
+Purpose:
+
+* Vote Timestamp Generation
+
+### collections.Counter
+
+Purpose:
+
+* Real-Time Vote Counting
+* Election Statistics
+
+### json
+
+Used internally by Flask's jsonify system.
+
+---
+
+## Browser Requirements
+
+Supported Browsers:
+
+* Google Chrome (Recommended)
+* Microsoft Edge
+* Mozilla Firefox
+* Brave Browser
+
+Not Recommended:
+
+* Internet Explorer
+* Legacy Browsers
+
+---
+
+## Network Requirements
+
+### Local Network Deployment
+
+Recommended Election Setup:
+
+1 Admin Laptop
+
+4–10 Voting Computers
+
+Connected to:
+
+* Same Wi-Fi Network
+  or
+* Same LAN Network
+
+---
+
+### Server Access
+
+Application URL:
+
+```text
+http://SERVER_IP:5000
+```
+
+Example:
+
+```text
+http://192.168.1.100:5000
+```
+
+---
+
+## Storage Requirements
+
+### Required Files
+
+valid_ts_numbers.csv
+
+Contains:
+
+* Approved Student TS Numbers
+
+votes.csv
+
+Contains:
+
+* Voting Records
+* Timestamps
+* Head Boy Votes
+* Head Girl Votes
+
+---
+
+## Security Requirements
+
+Implemented Security Features:
+
+* TS Number Verification
+* One Vote Per Student
+* Duplicate Vote Detection
+* Session Validation
+* Local Data Storage
+* Offline Operation
+
+---
+
+## Election Capacity
+
+Tested Design Capacity:
+
+* 700–1000 Students
+* 4–10 Concurrent Voting Devices
+* Single Local Server
+
+---
+
+## Administrative Features
+
+### Admin Dashboard
+
+Provides:
+
+* Total Votes
+* Candidate Counts
+* Live Results
+* Vote Monitoring
+
+---
+
+### Results API
+
+Endpoint:
+
+```text
+/api/results
+```
+
+Returns:
+
+* Total Votes
+* Head Boy Results
+* Head Girl Results
+
+Format:
+
+```json
+{
+    "total_votes": 250,
+    "headboy": {},
+    "headgirl": {}
+}
+```
+
+---
+
+## File Structure Requirements
+
+project/
+
+├── app.py
+
+├── requirements.txt
+
+├── README.md
+
+├── votes.csv
+
+├── valid_ts_numbers.csv
+
+│
+
+├── templates/
+
+│   ├── login.html
+
+│   ├── headboy.html
+
+│   ├── headgirl.html
+
+│   ├── thanks.html
+
+│   └── admin.html
+
+│
+
+└── static/
+
+```
+├── logo.png
+
+├── bg.jpg
+
+├── hb1.jpg
+
+├── hb2.jpg
+
+├── hb3.jpg
+
+├── hb4.jpg
+
+├── hg1.jpg
+
+├── hg2.jpg
+
+├── hg3.jpg
+
+└── hg4.jpg
+```
+
+---
+
+## Recommended Election Day Procedure
+
+1. Verify Candidate Images
+2. Verify TS Number Database
+3. Backup Existing votes.csv
+4. Test Admin Dashboard
+5. Test Voting Workflow
+6. Test Duplicate Vote Protection
+7. Start Election
+8. Monitor Results
+9. Backup Final Results
+10. Export Election Data
+
+---
+
+## Developed Using
+
+* Python
+* Flask
+* HTML
+* CSS
+* JavaScript
+* CSV Storage System
+
+---
+
+## Application Type
+
+Local Network Election Management System
+
+Version: Final4
+
+Status: Production Ready
